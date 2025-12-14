@@ -162,8 +162,15 @@ st.markdown("""
         position: fixed !important;
         top: 0.5rem !important;
         left: 0.5rem !important;
-        z-index: 999 !important;
+        z-index: 9999 !important;
         box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        width: 48px !important;
+        height: 48px !important;
+        min-width: 48px !important;
+        min-height: 48px !important;
     }
     
     button[data-testid="baseButton-header"]:hover {
@@ -174,8 +181,32 @@ st.markdown("""
     
     button[data-testid="baseButton-header"] svg {
         fill: #ffffff !important;
-        width: 20px !important;
-        height: 20px !important;
+        width: 24px !important;
+        height: 24px !important;
+    }
+    
+    /* Règles spécifiques pour mobile */
+    @media (max-width: 768px) {
+        button[data-testid="baseButton-header"] {
+            position: fixed !important;
+            top: 0.75rem !important;
+            left: 0.75rem !important;
+            z-index: 99999 !important;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            width: 56px !important;
+            height: 56px !important;
+            min-width: 56px !important;
+            min-height: 56px !important;
+            padding: 0.75rem !important;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4) !important;
+        }
+        
+        button[data-testid="baseButton-header"] svg {
+            width: 28px !important;
+            height: 28px !important;
+        }
     }
     
     /* Alternative: Bouton hamburger personnalisé */
@@ -827,6 +858,10 @@ st.markdown("""
         border-radius: 6px !important;
         padding: 0.5rem !important;
         margin: 0.5rem !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        z-index: 9999 !important;
     }
     
     [data-testid="stHeader"] button:hover {
@@ -836,6 +871,25 @@ st.markdown("""
     
     [data-testid="stHeader"] button svg {
         fill: #ffffff !important;
+    }
+    
+    /* S'assurer que le header n'est pas caché sur mobile */
+    @media (max-width: 768px) {
+        [data-testid="stHeader"] {
+            display: block !important;
+            visibility: visible !important;
+            position: relative !important;
+        }
+        
+        [data-testid="stHeader"] button[data-testid="baseButton-header"] {
+            position: fixed !important;
+            top: 0.75rem !important;
+            left: 0.75rem !important;
+            z-index: 99999 !important;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
     }
     
     /* Stats grid */
@@ -895,6 +949,46 @@ def load_models():
     except FileNotFoundError as e:
         st.error(f"Erreur: Fichier modèle non trouvé. Veuillez d'abord exécuter train_models.py")
         st.stop()
+
+# Bouton flottant pour mobile (visible uniquement quand sidebar est fermé)
+st.markdown("""
+<div id="mobile-sidebar-toggle" style="position: fixed; top: 1rem; left: 1rem; z-index: 99999; background: #0c7885; border: 1px solid rgba(255,255,255,0.2); color: #ffffff; padding: 0.75rem; border-radius: 6px; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.4); width: 56px; height: 56px; display: none; align-items: center; justify-content: center;">
+    <i class="fas fa-bars" style="color: #ffffff !important; font-size: 24px;"></i>
+</div>
+<script>
+    (function() {
+        const mobileBtn = document.getElementById('mobile-sidebar-toggle');
+        if (!mobileBtn) return;
+        
+        function toggleSidebar() {
+            const toggleBtn = document.querySelector('button[data-testid="baseButton-header"]');
+            if (toggleBtn) {
+                toggleBtn.click();
+            }
+        }
+        
+        mobileBtn.addEventListener('click', toggleSidebar);
+        
+        function checkSidebarState() {
+            if (window.innerWidth <= 768) {
+                const sidebar = document.querySelector('[data-testid="stSidebar"]');
+                if (sidebar) {
+                    const isVisible = sidebar.offsetWidth > 0 && window.getComputedStyle(sidebar).display !== 'none';
+                    mobileBtn.style.display = isVisible ? 'none' : 'flex';
+                } else {
+                    mobileBtn.style.display = 'flex';
+                }
+            } else {
+                mobileBtn.style.display = 'none';
+            }
+        }
+        
+        setInterval(checkSidebarState, 300);
+        window.addEventListener('resize', checkSidebarState);
+        setTimeout(checkSidebarState, 500);
+    })();
+</script>
+""", unsafe_allow_html=True)
 
 # Sidebar avec style Skydash
 st.sidebar.markdown("""
