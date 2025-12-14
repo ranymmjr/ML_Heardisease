@@ -50,6 +50,35 @@ st.markdown("""
         display: none !important;
     }
     
+    /* Forcer le rendu HTML dans les markdown - éviter l'affichage du code brut */
+    [data-testid="stMarkdownContainer"] pre:not([class]) {
+        display: none !important;
+    }
+    
+    /* S'assurer que le HTML est rendu et non affiché comme texte */
+    [data-testid="stMarkdownContainer"] > div > div {
+        white-space: normal !important;
+    }
+    
+    /* Forcer le rendu des balises HTML */
+    [data-testid="stMarkdownContainer"] h1,
+    [data-testid="stMarkdownContainer"] h2,
+    [data-testid="stMarkdownContainer"] h3,
+    [data-testid="stMarkdownContainer"] h4,
+    [data-testid="stMarkdownContainer"] p,
+    [data-testid="stMarkdownContainer"] ul,
+    [data-testid="stMarkdownContainer"] li,
+    [data-testid="stMarkdownContainer"] strong,
+    [data-testid="stMarkdownContainer"] i {
+        display: revert !important;
+        white-space: normal !important;
+    }
+    
+    /* Masquer uniquement les blocs de code, pas le HTML rendu */
+    [data-testid="stMarkdownContainer"] pre:has(code) {
+        display: none !important;
+    }
+    
     /* Thème sombre Skydash - Fond général */
     .main {
         background: #212121;
@@ -930,30 +959,14 @@ if page == "Dashboard":
     col1, col2 = st.columns([2, 1])
     
     with col1:
-        st.markdown("""
-        <div class='content-card primary'>
-            <div class='card-header'>
-                <h2 class='card-title'><i class="fas fa-info-circle"></i> Vue d'Ensemble du Projet</h2>
-            </div>
-            <h3 style='color: #cfcfd0; margin-top: 1rem;'><i class="fas fa-question-circle" style="color: #ffffff !important;"></i> Problématique</h3>
-            <p style='line-height: 1.8; color: #ffffff; margin-bottom: 1.5rem;'>
-            Les maladies cardiovasculaires représentent l'une des principales causes de mortalité dans le monde. 
-            L'identification précoce des patients à risque permet une intervention médicale rapide et efficace, 
-            réduisant ainsi la morbidité et la mortalité associées.
-            </p>
-            
-            <h3 style='color: #cfcfd0; margin-top: 1.5rem;'><i class="fas fa-lightbulb" style="color: #ffffff !important;"></i> Solution Proposée</h3>
-            <p style='line-height: 1.8; color: #ffffff; margin-bottom: 1rem;'>
-            Cette application propose une solution complète basée sur l'intelligence artificielle pour :
-            </p>
-            <ul style='line-height: 2.5; color: #ffffff; padding-left: 1.5rem;'>
-                <li><strong style='color: #ffffff;'>Identifier précocement</strong> les patients asymptomatiques à haut risque</li>
-                <li><strong style='color: #ffffff;'>Évaluer le risque</strong> avec un score continu personnalisé (0-100)</li>
-                <li><strong  style='color: #d4edda;' >Classer les patients</strong> selon leur niveau de risque (faible/moyen/élevé)</li>
-                <li><strong style='color: #ffffff;'>Grouper les patients</strong> similaires pour une meilleure compréhension des profils</li>
-            </ul>
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown("""<div class='content-card primary'><div class='card-header'><h2 class='card-title'><i class="fas fa-info-circle"></i> Vue d'Ensemble du Projet</h2></div>""", unsafe_allow_html=True)
+        
+        st.markdown("""<h3 style='color: #cfcfd0; margin-top: 1rem;'><i class="fas fa-question-circle" style="color: #ffffff !important;"></i> Problématique</h3>""", unsafe_allow_html=True)
+        st.markdown("""<p style='line-height: 1.8; color: #ffffff; margin-bottom: 1.5rem;'>Les maladies cardiovasculaires représentent l'une des principales causes de mortalité dans le monde. L'identification précoce des patients à risque permet une intervention médicale rapide et efficace, réduisant ainsi la morbidité et la mortalité associées.</p>""", unsafe_allow_html=True)
+        
+        st.markdown("""<h3 style='color: #cfcfd0; margin-top: 1.5rem;'><i class="fas fa-lightbulb" style="color: #ffffff !important;"></i> Solution Proposée</h3>""", unsafe_allow_html=True)
+        st.markdown("""<p style='line-height: 1.8; color: #ffffff; margin-bottom: 1rem;'>Cette application propose une solution complète basée sur l'intelligence artificielle pour :</p>""", unsafe_allow_html=True)
+        st.markdown("""<ul style='line-height: 2.5; color: #ffffff; padding-left: 1.5rem;'><li><strong style='color: #ffffff;'>Identifier précocement</strong> les patients asymptomatiques à haut risque</li><li><strong style='color: #ffffff;'>Évaluer le risque</strong> avec un score continu personnalisé (0-100)</li><li><strong style='color: #ffffff;'>Classer les patients</strong> selon leur niveau de risque (faible/moyen/élevé)</li><li><strong style='color: #ffffff;'>Grouper les patients</strong> similaires pour une meilleure compréhension des profils</li></ul></div>""", unsafe_allow_html=True)
     
     with col2:
         st.markdown("""
