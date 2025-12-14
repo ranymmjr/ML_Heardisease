@@ -69,9 +69,21 @@ st.markdown("""
     [data-testid="stMarkdownContainer"] ul,
     [data-testid="stMarkdownContainer"] li,
     [data-testid="stMarkdownContainer"] strong,
-    [data-testid="stMarkdownContainer"] i {
+    [data-testid="stMarkdownContainer"] i,
+    [data-testid="stMarkdownContainer"] a {
         display: revert !important;
         white-space: normal !important;
+    }
+    
+    /* Style des liens dans le contenu */
+    [data-testid="stMarkdownContainer"] a {
+        color: #14c7dd !important;
+        text-decoration: none !important;
+    }
+    
+    [data-testid="stMarkdownContainer"] a:hover {
+        color: #0fa8c0 !important;
+        text-decoration: underline !important;
     }
     
     /* Masquer uniquement les blocs de code, pas le HTML rendu */
@@ -959,14 +971,29 @@ if page == "Dashboard":
     col1, col2 = st.columns([2, 1])
     
     with col1:
-        st.markdown("""<div class='content-card primary'><div class='card-header'><h2 class='card-title'><i class="fas fa-info-circle"></i> Vue d'Ensemble du Projet</h2></div>""", unsafe_allow_html=True)
-        
-        st.markdown("""<h3 style='color: #cfcfd0; margin-top: 1rem;'><i class="fas fa-question-circle" style="color: #ffffff !important;"></i> Problématique</h3>""", unsafe_allow_html=True)
-        st.markdown("""<p style='line-height: 1.8; color: #ffffff; margin-bottom: 1.5rem;'>Les maladies cardiovasculaires représentent l'une des principales causes de mortalité dans le monde. L'identification précoce des patients à risque permet une intervention médicale rapide et efficace, réduisant ainsi la morbidité et la mortalité associées.</p>""", unsafe_allow_html=True)
-        
-        st.markdown("""<h3 style='color: #cfcfd0; margin-top: 1.5rem;'><i class="fas fa-lightbulb" style="color: #ffffff !important;"></i> Solution Proposée</h3>""", unsafe_allow_html=True)
-        st.markdown("""<p style='line-height: 1.8; color: #ffffff; margin-bottom: 1rem;'>Cette application propose une solution complète basée sur l'intelligence artificielle pour :</p>""", unsafe_allow_html=True)
-        st.markdown("""<ul style='line-height: 2.5; color: #ffffff; padding-left: 1.5rem;'><li><strong style='color: #ffffff;'>Identifier précocement</strong> les patients asymptomatiques à haut risque</li><li><strong style='color: #ffffff;'>Évaluer le risque</strong> avec un score continu personnalisé (0-100)</li><li><strong style='color: #ffffff;'>Classer les patients</strong> selon leur niveau de risque (faible/moyen/élevé)</li><li><strong style='color: #ffffff;'>Grouper les patients</strong> similaires pour une meilleure compréhension des profils</li></ul></div>""", unsafe_allow_html=True)
+        st.markdown("""
+        <div class='content-card primary'>
+            <div class='card-header'>
+                <h2 class='card-title'><i class="fas fa-info-circle"></i> Vue d'Ensemble du Projet</h2>
+            </div>
+            <h3 style='color: #cfcfd0; margin-top: 1rem;'><i class="fas fa-question-circle" style="color: #ffffff !important;"></i> Problématique</h3>
+            <p style='line-height: 1.8; color: #ffffff; margin-bottom: 1.5rem;'>
+            Les maladies cardiovasculaires représentent l'une des principales causes de mortalité dans le monde. 
+            L'identification précoce des patients à risque permet une intervention médicale rapide et efficace, 
+            réduisant ainsi la morbidité et la mortalité associées.
+            </p>
+            <h3 style='color: #cfcfd0; margin-top: 1.5rem;'><i class="fas fa-lightbulb" style="color: #ffffff !important;"></i> Solution Proposée</h3>
+            <p style='line-height: 1.8; color: #ffffff; margin-bottom: 1rem;'>
+            Cette application propose une solution complète basée sur l'intelligence artificielle pour :
+            </p>
+            <ul style='line-height: 2.5; color: #ffffff; padding-left: 1.5rem;'>
+                <li><strong style='color: #ffffff;'>Identifier précocement</strong> les patients asymptomatiques à haut risque</li>
+                <li><strong style='color: #ffffff;'>Évaluer le risque</strong> avec un score continu personnalisé (0-100)</li>
+                <li><strong style='color: #ffffff;'>Classer les patients</strong> selon leur niveau de risque (faible/moyen/élevé)</li>
+                <li><strong style='color: #ffffff;'>Grouper les patients</strong> similaires pour une meilleure compréhension des profils</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
     
     with col2:
         st.markdown("""
@@ -976,7 +1003,7 @@ if page == "Dashboard":
             </div>
             <div style='margin-top: 1rem;'>
                 <p style='margin-bottom: 0.5rem; color: #ffffff; font-weight: 600;'><i class="fas fa-file-alt" style="color: #ffffff !important;"></i> Dataset :</p>
-                <p style='color: #ffffff; margin-bottom: 1.5rem;'>Heart Disease Dataset</p>
+                <p style='color: #ffffff; margin-bottom: 1.5rem;'><a href='https://www.kaggle.com/datasets/mirzahasnine/heart-disease-dataset/data?fbclid=IwY2xjawOr9ARleHRuA2FlbQIxMQBzcnRjBmFwcF9pZAEwAAEebH0rH_aw2D_iE9jXA5PDvtYD7h0qZNkHMmuxYgE-qSVTu-V0bqVn0ypv_gg_aem_oUaXIl06AQKNHWrGqX-YhQ' target='_blank' style='color: #14c7dd; text-decoration: none; font-weight: 600;'>Heart Disease Dataset <i class="fas fa-external-link-alt" style="color: #14c7dd !important; font-size: 0.8em;"></i></a></p>
                 
                 <p style='margin-bottom: 0.5rem; color: #ffffff; font-weight: 600;'><i class="fas fa-users" style="color: #ffffff !important;"></i> Nombre de patients :</p>
                 <p style='color: #ffffff; margin-bottom: 1.5rem;'>4,238 patients</p>
