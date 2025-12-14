@@ -723,9 +723,54 @@ st.markdown("""
         border-bottom: 2px solid #e9ecef;
     }
     
-    /* Hide Streamlit branding mais garder le bouton sidebar */
+    /* Hide Streamlit branding et menu Git */
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
+    
+    /* Masquer l'icône Git et le lien vers le code source */
+    [data-testid="stHeader"] a[href*="github"] {
+        display: none !important;
+    }
+    
+    /* Masquer le menu déroulant avec les options */
+    [data-testid="stHeader"] [data-testid="stToolbar"] {
+        display: none !important;
+    }
+    
+    /* Masquer le bouton "Deploy" si présent */
+    .stDeployButton {
+        display: none !important;
+    }
+    
+    /* Masquer tous les liens dans le header sauf le bouton sidebar */
+    [data-testid="stHeader"] a:not([data-testid="baseButton-header"]) {
+        display: none !important;
+    }
+    
+    /* Masquer l'icône GitHub dans le header (sélecteurs alternatifs) */
+    [data-testid="stHeader"] [href*="github"],
+    [data-testid="stHeader"] [href*="GitHub"],
+    [data-testid="stHeader"] svg[viewBox*="16"]:has(+ a[href*="github"]),
+    [data-testid="stHeader"] a[aria-label*="GitHub"],
+    [data-testid="stHeader"] a[aria-label*="github"],
+    [data-testid="stHeader"] a[title*="GitHub"],
+    [data-testid="stHeader"] a[title*="github"] {
+        display: none !important;
+        visibility: hidden !important;
+    }
+    
+    /* Masquer le menu hamburger avec les options (About, Settings, etc.) */
+    [data-testid="stHeader"] [data-testid="stToolbar"] button,
+    [data-testid="stHeader"] [data-testid="stToolbar"] {
+        display: none !important;
+    }
+    
+    /* Masquer les éléments du menu déroulant */
+    [data-testid="stHeader"] [role="menu"],
+    [data-testid="stHeader"] [role="menuitem"] {
+        display: none !important;
+    }
+    
     /* Ne pas cacher le header pour garder le bouton de toggle */
     /* header {visibility: hidden;} */
     
